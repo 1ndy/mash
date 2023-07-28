@@ -52,6 +52,8 @@ func placeDocKey(root *TreeNode, n DocKey, spaceInterval int) {
 	root_level := root.Value.Spaces
 	if root_level+spaceInterval == n.Spaces {
 		root.addChild(n)
+	} else if len(root.Children) == 0 {
+		root.addChild(n)
 	} else if root_level+spaceInterval < n.Spaces {
 		placeDocKey(&root.Children[len(root.Children)-1], n, spaceInterval)
 	}
