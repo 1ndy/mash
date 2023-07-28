@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 	"regexp"
-	"strings"
 )
 
 func countIndent(node string) int {
@@ -20,11 +19,11 @@ func countIndent(node string) int {
 func stripSpacesAndQuotes(node string) string {
 	node_name_regex, _ := regexp.Compile(`\S+[^:]`)
 	key := string(node_name_regex.Find([]byte(node)))
-	quoteIndex := strings.Index(key, "\"")
-	if quoteIndex != -1 {
-		fmt.Fprintf(os.Stderr, "Found a quote in key %s. Mash does not currently support JSON-looking yaml. Please reformat and try again\n", key)
-		os.Exit(1)
-	}
+	// quoteIndex := strings.Index(key, "\"")
+	// if quoteIndex != -1 {
+	// 	fmt.Fprintf(os.Stderr, "Found a quote in key %s. Mash does not currently support JSON-looking yaml. Please reformat and try again\n", key)
+	// 	os.Exit(1)
+	// }
 	return key
 }
 
