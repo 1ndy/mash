@@ -54,19 +54,23 @@ func findSpacingInterval(keys []DocKey) int {
 	}
 
 	// take the derivative
-	var derivative []int
-	for i := 0; i < len(spaces)-1; i++ {
-		di := spaces[i+1] - spaces[i]
-		derivative = append(derivative, di)
-	}
-
-	// see if any difference is not divided evenly
-	firstVal := derivative[0]
-	for i := 0; i < len(derivative); i++ {
-		if derivative[i]%firstVal != 0 {
-			fmt.Fprintln(os.Stderr, "Inconsistent spacing found in input, cannot determine hierarchy")
-			os.Exit(1)
+	if len(spaces)-1 == 0 {
+		return spaces[0]
+	} else {
+		derivative := make([]int, len(keys)-1)
+		for i := 0; i < len(derivative); i++ {
+			di := spaces[i+1] - spaces[i]
+			derivative[i] = di
 		}
+
+		// see if any difference is not divided evenly
+		firstVal := derivative[0]
+		for i := 0; i < len(derivative); i++ {
+			if derivative[i]%firstVal != 0 {
+				fmt.Fprintln(os.Stderr, "Inconsistent spacing found in input, cannot determine hierarchy")
+				os.Exit(1)
+			}
+		}
+		return firstVal
 	}
-	return firstVal
 }
