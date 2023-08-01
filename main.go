@@ -33,7 +33,7 @@ func helpText(args []string) {
 	fmt.Fprintln(os.Stderr, " /_/  /_/_/  |_/____/_/ /_/  ")
 	fmt.Fprintln(os.Stderr, " Version 0.1")
 	fmt.Fprintln(os.Stderr)
-	fmt.Fprintln(os.Stderr, "Usage: mash [code|yaml] <file> [into|over] <yaml_file> at <path.seperated.by.dots>")
+	fmt.Fprintln(os.Stderr, "Usage 1: mash [code|yaml] <file> [into|over] <yaml_file> at <path.seperated.by.dots>")
 	fmt.Fprintln(os.Stderr)
 	fmt.Fprintln(os.Stderr, "\t[code|yaml]        whether <file> should be inserted as code (with a | for multiline) or as yaml")
 	fmt.Fprintln(os.Stderr, "\t<file>             the name of the code or yaml to insert into another file")
@@ -42,6 +42,9 @@ func helpText(args []string) {
 	fmt.Fprintln(os.Stderr, "\tat                 The word at. The design is very human")
 	fmt.Fprintln(os.Stderr, "\t<path>             The sequence of keys in <yaml_file> representing the location to insert")
 	fmt.Fprintln(os.Stderr, "")
+	fmt.Fprintln(os.Stderr, "Usage 2: mash delete from <yaml_file> <path.seperated.by.dots>")
+	fmt.Fprintln(os.Stderr, "\t<yaml_file>        The yaml file to delete from")
+	fmt.Fprintln(os.Stderr, "\t<path>             The sequence of keys in <yaml_file> representing the location to delete")
 	fmt.Fprintf(os.Stderr, "Got %d args: %v\n", len(args), args)
 	os.Exit(1)
 }
