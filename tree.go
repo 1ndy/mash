@@ -24,7 +24,7 @@ func (t *TreeNode) isValidPath(path []string) bool {
 	return false
 }
 
-func (t *TreeNode) getPathStartNode(path []string) DocKey {
+func (t *TreeNode) getPathStartNode(path []string) TreeNode {
 	root := *t
 	for _, key := range path {
 		for _, child := range root.Children {
@@ -34,7 +34,7 @@ func (t *TreeNode) getPathStartNode(path []string) DocKey {
 			}
 		}
 	}
-	return root.Value
+	return root
 }
 
 func (t *TreeNode) printTree() {
@@ -98,4 +98,26 @@ func buildTree(keys []DocKey) TreeNode {
 		placeDocKey(&root, key, spaceInterval)
 	}
 	return root
+}
+
+func findLastLineOfSubtree(root TreeNode) int {
+	return findLastLineOfSubtreeHelper(root, root.Value.LineNumber)
+}
+
+func findLastLineOfSubtreeHelper(root TreeNode, maxLine int) int {
+	if len(root.Children) == 0 {
+		if root.Value.LineNumber > maxLine {
+			return root.Value.LineNumber
+		} else {
+			return maxLine
+		}
+	}
+	localMax := maxLine
+	for _, child := range root.Children {
+		subtreeMax := findLastLineOfSubtreeHelper(child, maxLine)
+		if subtreeMax > localMax {
+			localMax = subtreeMax
+		}
+	}
+	return localMax
 }
